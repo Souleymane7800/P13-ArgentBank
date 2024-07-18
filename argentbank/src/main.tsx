@@ -1,31 +1,42 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from './App'
-import SignIn from './components/SignIn'
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from './App';
+import SignIn from './components/SignIn';
+import './index.css';
+import ProfilePage from './components/ProfilePage';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 
-// import ErrorPage from './components/ErrorPage'
-import './index.css'
-import ProfilePage from './components/ProfilePage'
+function renderApp() {
+      const rootElement = document.getElementById('root');
+      if (!rootElement) {
+            console.error(
+                  "Unable to render the React application. The root element with ID 'root' could not be found in the HTML document. Please ensure there exists an HTML element with the ID 'root' in your HTML file."
+            );
+            return;
+      }
+      const router = createBrowserRouter([
+            {
+                  path: '/',
+                  element: <Home />,
+            },
+            {
+                  path: '/login',
+                  element: <SignIn />,
+            },
+            {
+                  path: '/profile',
+                  element: <ProfilePage />,
+            },
+      ]);
 
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/login",
-    element: <SignIn />,
-  },
-  {
-    path: "/profile",
-    element: <ProfilePage />,
-  },
-]);
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+      createRoot(rootElement).render(
+            <React.StrictMode>
+                  <Provider store={store}>
+                        <RouterProvider router={router} />
+                  </Provider>
+            </React.StrictMode>
+      );
+}
+document.addEventListener('DOMContentLoaded', renderApp);
