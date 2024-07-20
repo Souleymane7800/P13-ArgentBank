@@ -29,7 +29,6 @@ const FetchUserProfile: React.FC = () => {
       const dispatch = useDispatch();
       const user = useSelector((state: RootState) => state.auth.user);
       console.log(user);
-      
 
       useEffect(() => {
             const fetchUserProfile = async () => {
@@ -48,7 +47,6 @@ const FetchUserProfile: React.FC = () => {
                               'http://localhost:3001/api/v1/user/profile',
                               {},
                               {
-                                    
                                     headers: {
                                           Authorization: `Bearer ${token}`,
                                     },
@@ -69,6 +67,7 @@ const FetchUserProfile: React.FC = () => {
       const handleEdit = () => {
             setUpdatedFirstName(user?.firstName || '');
             setUpdatedLastName(user?.lastName || '');
+            setIsEditing(true);
       };
 
       const handleSaveProfile = async () => {
@@ -132,7 +131,10 @@ const FetchUserProfile: React.FC = () => {
                                     <i className='fa fa-user-circle'></i>
                                     {user?.firstName}
                               </Link>
-                              <button className='main-nav-item' onClick={handleSignOut}>
+                              <button
+                                    className='main-nav-item'
+                                    onClick={handleSignOut}
+                              >
                                     <i className='fa fa-sign-out'></i>
                                     Sign Out
                               </button>
@@ -140,35 +142,65 @@ const FetchUserProfile: React.FC = () => {
                   </nav>
                   <main className='main bg-dark'>
                         <div className='header'>
-                          {isEditing ? (
-                            <>
-                              <h1>Welcome back</h1>
-                              <div>
-                              <input
-                  type="text"
-                  value={updatedFirstName}
-                  onChange={(e) => setUpdatedFirstName(e.target.value)}/>
-                  <input
-                  type="text"
-                  value={updatedLastName}
-                  onChange={(e) => setUpdatedLastName(e.target.value)}/>
-                              </div>
-                              <div>
-                              <button className='edit-button' onClick={handleSaveProfile}>Save</button>
-                              <button className='edit-button' onClick={handleCancelUpdate}>Cancel</button>
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                            <h1>Welcome Back</h1>
-                            <br />
-                            <p>
-                            {user?.firstName} {user?.lastName}!
-                            </p>
+                              {isEditing ? (
+                                    <>
+                                          <h1>Welcome back</h1>
+                                          <div>
+                                                <input
+                                                      type='text'
+                                                      value={updatedFirstName}
+                                                      onChange={(e) =>
+                                                            setUpdatedFirstName(
+                                                                  e.target.value
+                                                            )
+                                                      }
+                                                />
+                                                <input
+                                                      type='text'
+                                                      value={updatedLastName}
+                                                      onChange={(e) =>
+                                                            setUpdatedLastName(
+                                                                  e.target.value
+                                                            )
+                                                      }
+                                                />
+                                          </div>
+                                          <div>
+                                                <button
+                                                      className='edit-button'
+                                                      onClick={
+                                                            handleSaveProfile
+                                                      }
+                                                >
+                                                      Save
+                                                </button>
+                                                <button
+                                                      className='edit-button'
+                                                      onClick={
+                                                            handleCancelUpdate
+                                                      }
+                                                >
+                                                      Cancel
+                                                </button>
+                                          </div>
+                                    </>
+                              ) : (
+                                    <>
+                                          <h1>Welcome Back</h1>
+                                          <br />
+                                          <p>
+                                                {user?.firstName}{' '}
+                                                {user?.lastName}!
+                                          </p>
 
-                            <button className='edit-button' onClick={handleEdit}>Edit name</button>
-                            </>
-                          )}
+                                          <button
+                                                className='edit-button'
+                                                onClick={handleEdit}
+                                          >
+                                                Edit name
+                                          </button>
+                                    </>
+                              )}
                         </div>
                         <h2 className='sr-only'>Accounts</h2>
                         <section className='account'>
@@ -230,4 +262,3 @@ const FetchUserProfile: React.FC = () => {
 };
 
 export default FetchUserProfile;
-
