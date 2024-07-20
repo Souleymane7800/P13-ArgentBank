@@ -34,7 +34,7 @@ export const loginUser = createAsyncThunk<
   {
     rejectValue: string;
   }
->('auth/login', async (payload, { rejectWithValue }) => {
+>('auth/login', async (payload, { rejectWithValue, dispatch }) => {
   try {
     const response = await axios.post<LoginResponse>(
       'http://localhost:3001/api/v1/user/login',
@@ -43,25 +43,31 @@ export const loginUser = createAsyncThunk<
     localStorage.setItem('token', response.data.body.token);
     return response.data;
   } catch (error) {
+    dispatch(setError("An unexpected error occurred"));
     return rejectWithValue('An unexpected error occurred');
   }
 });
 
-const initialState: AuthState = {
-  user: null,
-  token: null,
-  error: null,
-  loading: false,
-};
+// const initialState: AuthState = {
+//   user: null,
+//   token: null,
+//   error: null,
+//   loading: false,
+// };
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: {
+    user: null as User | null,
+    token: null as string | null,
+    error: null as string | null,
+    loading: false,
+  },
   reducers: {
     setUser: (state, action: PayloadAction<User | null>) => {
       state.user = action.payload;
     },
-    setError: (state, action: PayloadAction<string | null>) => {
+    setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
     },
     setToken: (state, action: PayloadAction<string | null>) => {
@@ -70,11 +76,11 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
+      .addCase(loginUser.pending, (state: AuthState) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<LoginResponse>) => {
+      .addCase(loginUser.fulfilled, (state: AuthState, action: PayloadAction<LoginResponse>) => {
         state.loading = false;
         state.token = action.payload.body.token;
         state.error = null;

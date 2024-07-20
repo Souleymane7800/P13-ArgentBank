@@ -16,6 +16,7 @@ function renderApp() {
             );
             return;
       }
+      
       const router = createBrowserRouter([
             {
                   path: '/',
