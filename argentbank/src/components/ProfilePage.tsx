@@ -28,19 +28,18 @@ const FetchUserProfile: React.FC = () => {
       const navigate = useNavigate();
       const dispatch = useDispatch();
       const user = useSelector((state: RootState) => state.auth.user);
-      console.log(user);
-
+      
       useEffect(() => {
             const fetchUserProfile = async () => {
                   try {
-                        const token = localStorage.getItem('token');
-                        console.log('Token from localStorage', token);
-
+                        const token = sessionStorage.getItem('token');
+                        console.log('Token from sessionStorage', token);
+                        
                         if (!token) {
-                              console.log('No token find in localStorage');
+                              console.log('No token find in sessionStorage');
                               navigate('/');
                         }
-
+                        
                         console.log('Fetching user profile');
                         console.log('Token used:', token);
                         const response = await axios.post<ServerResponse>(
@@ -52,7 +51,7 @@ const FetchUserProfile: React.FC = () => {
                                     },
                               }
                         );
-
+                        
                         console.log('Response from server:', response.data);
                         dispatch(setUser(response.data.body));
                         console.log('User profile fetched successfully');
@@ -63,6 +62,7 @@ const FetchUserProfile: React.FC = () => {
             };
             fetchUserProfile();
       }, [dispatch, navigate]);
+      console.log(user);
 
       const handleEdit = () => {
             setUpdatedFirstName(user?.firstName || '');
@@ -72,9 +72,9 @@ const FetchUserProfile: React.FC = () => {
 
       const handleSaveProfile = async () => {
             try {
-                  const token = localStorage.getItem('token');
+                  const token = sessionStorage.getItem('token');
                   if (!token) {
-                        console.log('No token found in localStorage');
+                        console.log('No token found in sessionStorage');
                         return;
                   }
 
@@ -105,8 +105,8 @@ const FetchUserProfile: React.FC = () => {
 
       const handleSignOut = () => {
             console.log('Signing out...');
-            localStorage.removeItem('token');
-            console.log('Token removed from localStorage');
+            sessionStorage.removeItem('token');
+            console.log('Token removed from sessionStorage');
             dispatch(setUser(null)); // Clear the user in Redux store
             dispatch(setToken(null)); // Clear the token in Redux store
             console.log('User state cleared');
@@ -145,9 +145,11 @@ const FetchUserProfile: React.FC = () => {
                               {isEditing ? (
                                     <>
                                           <h1>Welcome back</h1>
-                                          <div>
+                                          <div className='edit-input'>
+                                          {/* <label htmlFor='firstName'></label> */}
                                                 <input
                                                       type='text'
+                                                      id='firstName'
                                                       value={updatedFirstName}
                                                       onChange={(e) =>
                                                             setUpdatedFirstName(
@@ -155,8 +157,10 @@ const FetchUserProfile: React.FC = () => {
                                                             )
                                                       }
                                                 />
+                                                {/* <label htmlFor='lastName'></label> */}
                                                 <input
                                                       type='text'
+                                                       id='lastName'
                                                       value={updatedLastName}
                                                       onChange={(e) =>
                                                             setUpdatedLastName(
@@ -165,7 +169,7 @@ const FetchUserProfile: React.FC = () => {
                                                       }
                                                 />
                                           </div>
-                                          <div>
+                                          <div className='button-edit'>
                                                 <button
                                                       className='edit-button'
                                                       onClick={

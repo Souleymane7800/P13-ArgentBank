@@ -40,7 +40,7 @@ export const loginUser = createAsyncThunk<
       'http://localhost:3001/api/v1/user/login',
       payload
     );
-    localStorage.setItem('token', response.data.body.token);
+    sessionStorage.setItem('token', response.data.body.token);
     return response.data;
   } catch (error) {
     dispatch(setError("An unexpected error occurred"));

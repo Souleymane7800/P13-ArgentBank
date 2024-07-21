@@ -27,10 +27,10 @@ const SignIn: React.FC = () => {
                         console.log('JWT token not found in the result');
                   }
 
-                  const tokenFromLocalStorage = localStorage.getItem('token');
+                  const tokenFromSessionStorage = sessionStorage.getItem('token');
                   console.log(
-                        'Token from localStorage:',
-                        tokenFromLocalStorage
+                        'Token from sessionStorage:',
+                        tokenFromSessionStorage
                   );
 
                   navigate('/profile');
