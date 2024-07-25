@@ -7,6 +7,7 @@ import './index.css';
 import ProfilePage from './components/ProfilePage';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
+import NotFound from './components/NotFound';
 
 function renderApp() {
       const rootElement = document.getElementById('root');
@@ -30,6 +31,10 @@ function renderApp() {
                   path: '/profile',
                   element: <ProfilePage />,
             },
+            {
+                  path: '*', // Route wildcard pour 404 Not Found
+                  element: <NotFound />,
+              },
       ]);
 
       createRoot(rootElement).render(

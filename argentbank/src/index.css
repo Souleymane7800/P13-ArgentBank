@@ -33,6 +33,7 @@ body {
 .header > p {
       font-size: 2rem;
       margin-top: 0.5rem;
+      font-weight: bold;
 }
 
 .sr-only {
@@ -352,4 +353,13 @@ body {
       color: #9ea0a5;
       outline: 1px solid #374151;
       font-size: 18px;
+}
+
+.not-found {
+      color: red;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 45px;
 }
