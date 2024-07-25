@@ -6,11 +6,13 @@ import { useAppDispatch } from '../app/hook';
 const SignIn: React.FC = () => {
       const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
+      const [errorMessage, setErrorMessage] = useState('');
       const navigate = useNavigate();
       const dispatch = useAppDispatch();
 
       const handleFormSubmit = async (event: React.FormEvent) => {
             event.preventDefault();
+            setErrorMessage('');
             try {
                   const payload: LoginPayload = { email, password };
                   console.log(
@@ -23,23 +25,28 @@ const SignIn: React.FC = () => {
 
                   if (result && result.body && result.body.token) {
                         console.log('JWT token:', result.body.token);
+                        navigate('/profile');
                   } else {
                         console.log('JWT token not found in the result');
+                        setErrorMessage(
+                              'Login failed. Please check your credentials.'
+                        );
                   }
 
-                  const tokenFromSessionStorage = sessionStorage.getItem('token');
+                  const tokenFromSessionStorage =
+                        sessionStorage.getItem('token');
                   console.log(
                         'Token from sessionStorage:',
                         tokenFromSessionStorage
                   );
-
-                  navigate('/profile');
             } catch (error) {
                   console.error('Login error:', error);
                   if (typeof error === 'string') {
-                        alert(error);
+                        setErrorMessage(error);
                   } else {
-                        alert('An unknown error occurred');
+                        setErrorMessage(
+                              'An unknown error occurred. Please try again.'
+                        );
                   }
             }
       };
@@ -68,9 +75,7 @@ const SignIn: React.FC = () => {
                               <h1>Sign In</h1>
                               <form onSubmit={handleFormSubmit}>
                                     <div className='input-wrapper'>
-                                          <label htmlFor='username'>
-                                                Username
-                                          </label>
+                                          <label htmlFor='email'>Email</label>
                                           <input
                                                 type='text'
                                                 id='email'
@@ -78,7 +83,7 @@ const SignIn: React.FC = () => {
                                                 onChange={(e) =>
                                                       setEmail(e.target.value)
                                                 }
-                                                placeholder='Username'
+                                                placeholder='Email'
                                           />
                                     </div>
                                     <div className='input-wrapper'>
@@ -112,6 +117,17 @@ const SignIn: React.FC = () => {
                                     >
                                           Sign In
                                     </button>
+                                    {errorMessage && (
+                                          <div
+                                                className='error-message'
+                                                style={{
+                                                      color: 'red',
+                                                      marginTop: '10px',
+                                                }}
+                                          >
+                                                {errorMessage}
+                                          </div>
+                                    )}
                               </form>
                         </section>
                   </main>

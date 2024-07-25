@@ -16,7 +16,7 @@ function renderApp() {
             );
             return;
       }
-      
+
       const router = createBrowserRouter([
             {
                   path: '/',
@@ -40,4 +40,5 @@ function renderApp() {
             </React.StrictMode>
       );
 }
+
 document.addEventListener('DOMContentLoaded', renderApp);

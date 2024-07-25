@@ -1,11 +1,9 @@
-import { RootState } from '@reduxjs/toolkit/query';
+import { RootState } from '../app/store';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setToken, setUser } from '../app/authSlice';
-
-// import './css/main.css';
 interface User {
       _id: string;
       email: string;
@@ -28,18 +26,18 @@ const FetchUserProfile: React.FC = () => {
       const navigate = useNavigate();
       const dispatch = useDispatch();
       const user = useSelector((state: RootState) => state.auth.user);
-      
+
       useEffect(() => {
             const fetchUserProfile = async () => {
                   try {
                         const token = sessionStorage.getItem('token');
                         console.log('Token from sessionStorage', token);
-                        
+
                         if (!token) {
                               console.log('No token find in sessionStorage');
                               navigate('/');
                         }
-                        
+
                         console.log('Fetching user profile');
                         console.log('Token used:', token);
                         const response = await axios.post<ServerResponse>(
@@ -51,7 +49,7 @@ const FetchUserProfile: React.FC = () => {
                                     },
                               }
                         );
-                        
+
                         console.log('Response from server:', response.data);
                         dispatch(setUser(response.data.body));
                         console.log('User profile fetched successfully');
@@ -103,7 +101,7 @@ const FetchUserProfile: React.FC = () => {
             setIsEditing(false);
       };
 
-      const handleSignOut = () => {
+      const handleSignOut = async () => {
             console.log('Signing out...');
             sessionStorage.removeItem('token');
             console.log('Token removed from sessionStorage');
@@ -136,7 +134,7 @@ const FetchUserProfile: React.FC = () => {
                                     onClick={handleSignOut}
                               >
                                     <i className='fa fa-sign-out'></i>
-                                    Sign Out
+                                    <span className='sign-out'>Sign out</span>
                               </button>
                         </div>
                   </nav>
@@ -146,7 +144,7 @@ const FetchUserProfile: React.FC = () => {
                                     <>
                                           <h1>Welcome back</h1>
                                           <div className='edit-input'>
-                                          {/* <label htmlFor='firstName'></label> */}
+                                                {/* <label htmlFor='firstName'></label> */}
                                                 <input
                                                       type='text'
                                                       id='firstName'
@@ -160,7 +158,7 @@ const FetchUserProfile: React.FC = () => {
                                                 {/* <label htmlFor='lastName'></label> */}
                                                 <input
                                                       type='text'
-                                                       id='lastName'
+                                                      id='lastName'
                                                       value={updatedLastName}
                                                       onChange={(e) =>
                                                             setUpdatedLastName(
@@ -194,7 +192,7 @@ const FetchUserProfile: React.FC = () => {
                                           <br />
                                           <p>
                                                 {user?.firstName}{' '}
-                                                {user?.lastName}!
+                                                {user?.lastName} !
                                           </p>
 
                                           <button

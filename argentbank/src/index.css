@@ -19,20 +19,34 @@ body {
 
 .bg-dark {
       background-color: #12002b;
+      padding-bottom: 1rem;
+}
+
+.main-container .bg-dark {
+      height: 75vh;
+}
+
+.header > h1 {
+      padding-top: 2rem;
+}
+
+.header > p {
+      font-size: 2rem;
+      margin-top: 0.5rem;
 }
 
 .sr-only {
       border: 0 !important;
-      clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+      clip: rect(1px, 1px, 1px, 1px) !important;
       -webkit-clip-path: inset(50%) !important;
-      clip-path: inset(50%) !important; /* 2 */
+      clip-path: inset(50%) !important;
       height: 1px !important;
       margin: -1px !important;
       overflow: hidden !important;
       padding: 0 !important;
       position: absolute !important;
       width: 1px !important;
-      white-space: nowrap !important; /* 3 */
+      white-space: nowrap !important;
 }
 
 .main-nav {
@@ -54,10 +68,18 @@ body {
 .main-nav-item {
       text-decoration: none;
       margin-right: 0.5rem;
+      border: none;
+      background-color: #fff;
+      font-size: 20px;
 }
 
 .main-nav-item:hover {
       text-decoration: underline;
+}
+
+.sign-out {
+      font-weight: bold;
+      color: #2c3e50;
 }
 
 .main-nav-logo {
@@ -293,13 +315,41 @@ body {
 .edit-input {
       display: flex;
       gap: 1.2rem;
-      /* align-content: center; */
       justify-content: center;
       height: 40px;
       padding-bottom: 15px;
+      margin: 0px 20px;
+}
+
+.button-edit {
+      gap: 1.2rem;
+      display: flex;
+      justify-content: center;
 }
 
 .button-edit > button {
-  width: 100px;
- background: #000;
+      width: 150px;
+      background-color: #00bc77;
+      color: #fff;
+      outline: 1px solid #00bc77;
+      font-size: 18px;
+      border: none;
+}
+
+@media (max-width: 560px) {
+      .hero-content {
+            width: 100%;
+            top: 15rem;
+            padding: 5px;
+      }
+}
+
+#firstName,
+#lastName {
+      min-width: 50px;
+      border-radius: 4px;
+      padding: 0px 8px;
+      color: #9ea0a5;
+      outline: 1px solid #374151;
+      font-size: 18px;
 }

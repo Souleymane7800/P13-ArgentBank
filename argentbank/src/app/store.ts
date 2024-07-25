@@ -23,16 +23,3 @@ export const store = setupStore();
 export type AppStore = typeof store;
 export type AppDispatch = AppStore['dispatch'];
 export type RootState = ReturnType<typeof rootReducer>;
-// export const store = configureStore({
-//       reducer: {
-//             auth: authReducer,
-//       },
-//       middleware: (getDefaultMiddleware) =>
-//             getDefaultMiddleware({
-//                   serializableCheck: {
-//                         ignoredActions: ['auth/login/fulfilled'],
-//                         ignoredPaths: ['auth.user'],
-//                   },
-//             }),
-//       devTools: process.env.NODE_ENV !== 'production',
-// });
