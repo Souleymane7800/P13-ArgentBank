@@ -32,7 +32,7 @@ function renderApp() {
                   element: <ProfilePage />,
             },
             {
-                  path: '*', // Route wildcard pour 404 Not Found
+                  path: '*',
                   element: <NotFound />,
               },
       ]);

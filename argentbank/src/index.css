@@ -34,6 +34,7 @@ body {
       font-size: 2rem;
       margin-top: 0.5rem;
       font-weight: bold;
+      margin-top: -2rem;
 }
 
 .sr-only {
@@ -362,4 +363,9 @@ body {
       flex-direction: column;
       justify-content: center;
       font-size: 45px;
+}
+
+.firstname,
+.lastname {
+      display: none;
 }
