@@ -144,7 +144,10 @@ const FetchUserProfile: React.FC = () => {
                                     <>
                                           <h1>Welcome back</h1>
                                           <div className='edit-input'>
-                                                <label className='firstname' htmlFor='firstName'></label>
+                                                <label
+                                                      className='firstname'
+                                                      htmlFor='firstName'
+                                                ></label>
                                                 <input
                                                       type='text'
                                                       id='firstName'
@@ -155,7 +158,10 @@ const FetchUserProfile: React.FC = () => {
                                                             )
                                                       }
                                                 />
-                                                <label className='lastname' htmlFor='lastName'></label>
+                                                <label
+                                                      className='lastname'
+                                                      htmlFor='lastName'
+                                                ></label>
                                                 <input
                                                       type='text'
                                                       id='lastName'

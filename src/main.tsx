@@ -8,6 +8,7 @@ import ProfilePage from './components/ProfilePage';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import NotFound from './components/NotFound';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function renderApp() {
       const rootElement = document.getElementById('root');
@@ -29,7 +30,11 @@ function renderApp() {
             },
             {
                   path: '/profile',
-                  element: <ProfilePage />,
+                  element: (
+                        <ProtectedRoute>
+                          <ProfilePage />
+                        </ProtectedRoute>
+                      ),
             },
             {
                   path: '*',

@@ -67,6 +67,7 @@ paths:
                   description: API for fetching a user profile
                   parameters:
                         - in: header
+                          type: string    
                           name: Authorization
                           description: Attach Bearer JWT token
                           required: true
@@ -90,6 +91,7 @@ paths:
                   description: API for updating a user profile
                   parameters:
                         - in: header
+                          type: string    
                           name: Authorization
                           description: Attach Bearer JWT token
                           required: true
@@ -245,6 +247,37 @@ paths:
                               description: Transaction not found
                         '500':
                               description: Internal Server Error
+            delete:
+                  security:
+                        - Bearer: []
+                  tags:
+                        - Transactions Module
+                  summary: Transaction Delete
+                  description: Deleting a transaction
+                  parameters:
+                        - in: header
+                          type: string
+                          name: Authorization
+                          description: Attach Bearer JWT token
+                          required: true
+                        - in: path
+                          name: transactionId
+                          description: Id of the transaction that needs to be deleted
+                          required: true
+                          type: string
+                  produces:
+                        - application/json
+                  responses:
+                        '200':
+                              description: Transaction deleted successfully
+                        '400':
+                              description: Invalid fields
+                        '401':
+                              description: Unauthorized
+                        '404':
+                              description: Transaction not found
+                        '500':
+                              description: Internal Server Error
 securityDefinitions:
       Bearer:
             type: apiKey
@@ -309,47 +342,47 @@ definitions:
                         type: object
                         properties:
                               transaction:
-                                    description: Transaction
-                              properties:
-                                    id:
-                                          type: string
-                                          description: Id of the transaction
-                                    date:
-                                          type: string
-                                          description: Datee of the transaction
-                                    type:
-                                          type: string
-                                          enum:
-                                                [
-                                                      Electronic,
-                                                      Cash,
-                                                      Check,
-                                                      Transfer,
-                                                ]
-                                    amount:
-                                          type: number
-                                          description: Amount of the transaction
-                                    description:
-                                          type: string
-                                          description: Description of the transaction
-                                    category:
-                                          type: string
-                                          enum:
-                                                [
-                                                      Food,
-                                                      Housing,
-                                                      Transportation,
-                                                      Clothing,
-                                                      Insurance,
-                                                      Entertainment,
-                                                      Education,
-                                                      Health,
-                                                      Others,
-                                                ]
-                                          description: Category of the transaction
-                                    notes:
-                                          type: string
-                                          description: Notes of the transaction
+                                    type: object
+                                    properties:
+                                          id:
+                                                type: string
+                                                description: Id of the transaction
+                                          date:
+                                                type: string
+                                                description: Datee of the transaction
+                                          type:
+                                                type: string
+                                                enum:
+                                                      [
+                                                            Electronic,
+                                                            Cash,
+                                                            Check,
+                                                            Transfer,
+                                                      ]
+                                          amount:
+                                                type: number
+                                                description: Amount of the transaction
+                                          description:
+                                                type: string
+                                                description: Description of the transaction
+                                          category:
+                                                type: string
+                                                enum:
+                                                      [
+                                                            Food,
+                                                            Housing,
+                                                            Transportation,
+                                                            Clothing,
+                                                            Insurance,
+                                                            Entertainment,
+                                                            Education,
+                                                            Health,
+                                                            Others,
+                                                      ]
+                                                description: Category of the transaction
+                                          notes:
+                                                type: string
+                                                description: Notes of the transaction
       TransactionResponse:
             properties:
                   status:
@@ -399,7 +432,7 @@ definitions:
                         description: Amount of the new transaction
                   description:
                         type: string
-                        descritption: Description of the new transaction
+                        description: Description of the new transaction
                   category:
                         type: string
                         enum:

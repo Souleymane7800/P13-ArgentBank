@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+
 interface User {
       _id: string;
       email: string;
@@ -93,3 +94,4 @@ const authSlice = createSlice({
 
 export const { reducer: authReducer, actions: authActions } = authSlice;
 export const { setUser, setError, setToken } = authActions;
+export type { User, AuthState };
