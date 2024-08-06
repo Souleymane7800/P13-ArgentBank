@@ -1,3 +1,9 @@
+/**
+ * Renders the hero section of the homepage.
+ * Displays promotional content about the bank's offerings.
+ *
+ * @returns The JSX representation of the hero section.
+ */
 const Hero: React.FC = () => {
       return (
             <div className='hero'>

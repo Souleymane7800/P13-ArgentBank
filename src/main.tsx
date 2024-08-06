@@ -10,6 +10,10 @@ import { store } from './app/store';
 import NotFound from './components/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
 
+/**
+ * Renders the React application to the DOM.
+ * Handles routing, Redux store, and error handling.
+ */
 function renderApp() {
       const rootElement = document.getElementById('root');
       if (!rootElement) {
@@ -32,14 +36,14 @@ function renderApp() {
                   path: '/profile',
                   element: (
                         <ProtectedRoute>
-                          <ProfilePage />
+                              <ProfilePage />
                         </ProtectedRoute>
-                      ),
+                  ),
             },
             {
                   path: '*',
                   element: <NotFound />,
-              },
+            },
       ]);
 
       createRoot(rootElement).render(

@@ -4,6 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setToken, setUser } from '../app/authSlice';
+
+/**
+ * Interface representing a user object.
+ */
 interface User {
       _id: string;
       email: string;
@@ -13,12 +17,21 @@ interface User {
       updatedAt: string;
 }
 
+/**
+ * Interface representing the response from the server for user profile.
+ */
 interface ServerResponse {
       status: number;
       message: string;
       body: User;
 }
 
+/**
+ * Fetches the user profile data from the server and updates the Redux store.
+ * Redirects to login page if no token is found.
+ *
+ * @returns {JSX.Element} The user profile component.
+ */
 const FetchUserProfile: React.FC = () => {
       const [updatedFirstName, setUpdatedFirstName] = useState('');
       const [updatedLastName, setUpdatedLastName] = useState('');

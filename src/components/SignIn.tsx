@@ -3,6 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LoginPayload, loginUser } from '../app/authSlice';
 import { useAppDispatch } from '../app/hook';
 
+/**
+ * Renders the sign-in form for the application.
+ * Allows users to enter their email and password to log in.
+ * Displays error messages if login fails.
+ *
+ * @returns {JSX.Element} The JSX representation of the sign-in form.
+ */
 const SignIn: React.FC = () => {
       const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
@@ -10,6 +17,14 @@ const SignIn: React.FC = () => {
       const navigate = useNavigate();
       const dispatch = useAppDispatch();
 
+      /**
+       * Handles form submission for sign-in.
+       * Dispatches the `loginUser` action with user credentials.
+       * Navigates to the profile page on successful login.
+       * Displays error messages based on the login response.
+       *
+       * @param {React.FormEvent<HTMLFormElement>} event The form submission event.
+       */
       const handleFormSubmit = async (event: React.FormEvent) => {
             event.preventDefault();
             setErrorMessage('');

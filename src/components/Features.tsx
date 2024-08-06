@@ -1,3 +1,9 @@
+/**
+ * Renders the features section of the homepage.
+ * Displays three feature items with icons, titles, and descriptions.
+ *
+ * @returns The JSX representation of the features section.
+ */
 const Features: React.FC = () => {
       return (
             <section className='features'>

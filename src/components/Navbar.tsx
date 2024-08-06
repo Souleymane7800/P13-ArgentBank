@@ -4,10 +4,20 @@ import { Link } from 'react-router-dom';
 import { setUser } from '../app/authSlice';
 import { RootState } from '../app/store';
 
+/**
+ * Renders the main navigation bar for the application.
+ * Displays different navigation options based on user authentication status.
+ *
+ * @returns The JSX representation of the navigation bar.
+ */
 const Navbar: React.FC = () => {
       const dispatch = useDispatch();
       const user = useSelector((state: RootState) => state.auth.user);
 
+      /**
+       * Handles the sign-out action.
+       * Removes token from session storage and dispatches setUser action.
+       */
       const handleSignOut = async () => {
             sessionStorage.removeItem('token');
             dispatch(setUser(null));

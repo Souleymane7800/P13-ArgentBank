@@ -1,5 +1,11 @@
 import React from 'react';
 
+/**
+ * Renders the 404 Not Found page.
+ * Displays an error message and the application logo.
+ *
+ * @returns The JSX representation of the 404 page.
+ */
 const NotFound: React.FC = () => {
       return (
             <div className='not-found'>
