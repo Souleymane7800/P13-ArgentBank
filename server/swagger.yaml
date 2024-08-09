@@ -1,461 +1,465 @@
 swagger: '2.0'
 info:
-      title: Bank Argent API documentation
-      description: Contains all available API endpoints in this codebase
-      version: '1.0.0'
-      termsOfService: 'http://swagger.io/terms/'
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: 1.0.0
+  termsOfService: http://swagger.io/terms/
 host: localhost:3001
 basePath: /api/v1
 schemes:
-      - http
+  - http
 paths:
-      /user/login:
-            post:
-                  tags:
-                        - User Module
-                  summary: Login
-                  description: API for Login
-                  parameters:
-                        - in: body
-                          name: body
-                          description: Login Payload
-                          required: true
-                          schema:
-                                $ref: '#/definitions/Login'
-                  produces:
-                        - application/json
-                  responses:
-                        '200':
-                              description: Login Successfully
-                              schema:
-                                    $ref: '#/definitions/LoginResponse'
-                        '400':
-                              description: Invalid Fields
-                        '500':
-                              description: Internal Server Error
-      /user/signup:
-            post:
-                  tags:
-                        - User Module
-                  summary: Signup
-                  description: API for Signup
-                  parameters:
-                        - in: body
-                          name: body
-                          description: Signup Payload
-                          required: true
-                          schema:
-                                $ref: '#/definitions/User'
-                  produces:
-                        - application/json
-                  responses:
-                        '200':
-                              description: Signup Successfully
-                              schema:
-                                    $ref: '#/definitions/ApiResponse'
-                        '400':
-                              description: Invalid Fields
-                        '500':
-                              description: Internal Server Error
-      /user/profile:
-            post:
-                  security:
-                        - Bearer: []
-                  tags:
-                        - User Module
-                  summary: User Profile API
-                  description: API for fetching a user profile
-                  parameters:
-                        - in: header
-                          type: string    
-                          name: Authorization
-                          description: Attach Bearer JWT token
-                          required: true
-                  produces:
-                        - application/json
-                  responses:
-                        '200':
-                              description: User profile retrieved successully
-                              schema:
-                                    $ref: '#/definitions/ApiResponse'
-                        '400':
-                              description: Invalid Fields
-                        '500':
-                              description: Internal Server Error
-            put:
-                  security:
-                        - Bearer: []
-                  tags:
-                        - User Module
-                  summary: User Profile API
-                  description: API for updating a user profile
-                  parameters:
-                        - in: header
-                          type: string    
-                          name: Authorization
-                          description: Attach Bearer JWT token
-                          required: true
-                        - in: body
-                          name: body
-                          description: Update user profile attributes
-                          required: true
-                          schema:
-                                $ref: '#/definitions/UserProfile'
-                  produces:
-                        - application/json
-                  responses:
-                        '200':
-                              description: User profile retrieved successully
-                              schema:
-                                    $ref: '#/definitions/ApiResponse'
-                        '400':
-                              description: Invalid Fields
-                        '500':
-                              description: Internal Server Error
-      /user/transactions:
-            get:
-                  security:
-                        - Bearer: []
-                  tags:
-                        - Transactions Module
-                  summary: Get all transactions
-                  description: Retrieve all transactions for a authenticated user
-                  parameters:
-                        - in: header
-                          name: Authorization
-                          description: Attach Bearer JWT token
-                          required: true
-                          type: string
-                  produces:
-                        - application/json
-                  responses:
-                        '200':
-                              description: User transactions retrieved successfully
-                              schema:
-                                    $ref: '#/definitions/allTransactionsResponse'
-                        '400':
-                              description: Invalid Fields
-                        '401':
-                              description: Unauthorized
-                        '404':
-                              description: Transactions not found
-                        '500':
-                              description: Internal Server Error
-      /user/transaction:
-            post:
-                  security:
-                        - Bearer: []
-                  tags:
-                        - Transactions Module
-                  summary: Add Transaction
-                  description: Add new transaction
-                  parameters:
-                        - in: header
-                          name: Authorization
-                          description: Attach Bearer JWT token
-                          required: true
-                          type: string
-                        - in: body
-                          name: body
-                          description: Transaction information to create a new transaction
-                          required: true
-                          schema:
-                                $ref: '#/definitions/addTransaction'
-                  produces:
-                        - application/json
-                  responses:
-                        '200':
-                              description: Transaction added successfully
-                              schema:
-                                    $ref: '#/definitions/TransactionResponse'
-                        '400':
-                              description: Invalid Fields
-                        '401':
-                              description: Unauthorized
-                        '500':
-                              description: Internal Server Error
-      /user/transaction/{transactionId}:
-            get:
-                  security:
-                        - Bearer: []
-                  tags:
-                        - Transactions Module
-                  summary: Get a transaction with his id
-                  description: Retrieve a specific transaction
-                  parameters:
-                        - in: header
-                          name: Authorization
-                          description: Attach Bearer JWT token
-                          required: true
-                          type: string
-                        - in: path
-                          name: transactionId
-                          description: Id of the transaction
-                          required: true
-                          type: string
-                  produces:
-                        - application/json
-                  responses:
-                        '200':
-                              description: Transaction retrieved successfully
-                              schema:
-                                    $ref: '#/definitions/TransactionResponse'
-                        '400':
-                              description: Invalid Fields
-                        '401':
-                              description: Unauthorized
-                        '404':
-                              description: Transaction not found
-                        '500':
-                              description: Internal Server Error
-            put:
-                  security:
-                        - Bearer: []
-                  tags:
-                        - Transactions Module
-                  summary: Edit Transaction
-                  description: Update a transaction
-                  parameters:
-                        - in: header
-                          name: Authorization
-                          description: Attach Bearer JWT token
-                          required: true
-                          type: string
-                        - in: path
-                          name: transactionId
-                          description: Id of the transaction that needs to be edited
-                          required: true
-                          type: string
-                        - in: body
-                          name: body
-                          description: Edit transaction
-                          required: true
-                          schema:
-                                $ref: '#/definitions/editTransaction'
-                  produces:
-                        - application/json
-                  responses:
-                        '200':
-                              description: Transaction edited successfully
-                              schema:
-                                    $ref: '#/definitions/TransactionResponse'
-                        '400':
-                              description: Invalid Fields
-                        '401':
-                              description: Unauthorized
-                        '404':
-                              description: Transaction not found
-                        '500':
-                              description: Internal Server Error
-            delete:
-                  security:
-                        - Bearer: []
-                  tags:
-                        - Transactions Module
-                  summary: Transaction Delete
-                  description: Deleting a transaction
-                  parameters:
-                        - in: header
-                          type: string
-                          name: Authorization
-                          description: Attach Bearer JWT token
-                          required: true
-                        - in: path
-                          name: transactionId
-                          description: Id of the transaction that needs to be deleted
-                          required: true
-                          type: string
-                  produces:
-                        - application/json
-                  responses:
-                        '200':
-                              description: Transaction deleted successfully
-                        '400':
-                              description: Invalid fields
-                        '401':
-                              description: Unauthorized
-                        '404':
-                              description: Transaction not found
-                        '500':
-                              description: Internal Server Error
+  /user/login:
+    post:
+      tags:
+        - User Module
+      summary: Login
+      description: API for Login
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Login Successfully
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/signup:
+    post:
+      tags:
+        - User Module
+      summary: Signup
+      description: API for Signup
+      parameters:
+        - in: body
+          name: body
+          description: Signup Payload
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Signup Successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching a user profile
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a user profile
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Update user profile attributes
+          required: true
+          schema:
+            $ref: '#/definitions/UserProfile'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User profile updated successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Get all transactions
+      description: Retrieve all transactions for an authenticated user, with an optional filter by month.
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: query
+          name: month
+          description: Optional filter to retrieve transactions for a specific month (MM-YYYY)
+          required: false
+          type: string
+          pattern: '^\d{4}-(0[1-9]|1[0-2])$'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User transactions retrieved successfully
+          schema:
+            $ref: '#/definitions/allTransactionsResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Not allowed to access this resource
+        '404':
+          description: Transactions not found
+        '500':
+          description: Internal Server Error
+  /user/transaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Add Transaction
+      description: Add new transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Transaction information to create a new transaction
+          required: true
+          schema:
+            $ref: '#/definitions/addTransaction'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction added successfully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  /user/transaction/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Get a transaction by ID
+      description: Retrieve a specific transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: path
+          name: transactionId
+          description: ID of the transaction
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction retrieved successfully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Not allowed to access this resource
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Edit Transaction
+      description: Update a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: path
+          name: transactionId
+          description: ID of the transaction that needs to be edited
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Edit transaction
+          required: true
+          schema:
+            $ref: '#/definitions/editTransaction'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction edited successfully
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Not allowed to access this resource
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Delete Transaction
+      description: Delete a transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: transactionId
+          description: ID of the transaction that needs to be deleted
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction deleted successfully
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
 securityDefinitions:
-      Bearer:
-            type: apiKey
-            name: Authorization
-            in: header
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
 definitions:
-      User:
-            properties:
-                  email:
-                        type: string
-                        description: user email
-                  password:
-                        type: string
-                        description: user password
-                  firstName:
-                        type: string
-                        description: user first name
-                  lastName:
-                        type: string
-                        description: user last name
-      Login:
-            properties:
-                  email:
-                        type: string
-                        description: user email
-                  password:
-                        type: string
-                        description: user password
-      ApiResponse:
-            type: object
-            properties:
-                  status:
-                        type: integer
-                  message:
-                        type: string
-                  body:
-                        type: object
-                        properties:
-                              id:
-                                    type: string
-                              email:
-                                    type: string
-      LoginResponse:
-            type: object
-            properties:
-                  token:
-                        type: string
-      UserProfile:
-            type: object
-            properties:
-                  firstName:
-                        type: string
-                  lastName:
-                        type: string
-      allTransactionsResponse:
-            properties:
-                  status:
-                        type: integer
-                  message:
-                        type: string
-                  body:
-                        type: object
-                        properties:
-                              transaction:
-                                    type: object
-                                    properties:
-                                          id:
-                                                type: string
-                                                description: Id of the transaction
-                                          date:
-                                                type: string
-                                                description: Datee of the transaction
-                                          type:
-                                                type: string
-                                                enum:
-                                                      [
-                                                            Electronic,
-                                                            Cash,
-                                                            Check,
-                                                            Transfer,
-                                                      ]
-                                          amount:
-                                                type: number
-                                                description: Amount of the transaction
-                                          description:
-                                                type: string
-                                                description: Description of the transaction
-                                          category:
-                                                type: string
-                                                enum:
-                                                      [
-                                                            Food,
-                                                            Housing,
-                                                            Transportation,
-                                                            Clothing,
-                                                            Insurance,
-                                                            Entertainment,
-                                                            Education,
-                                                            Health,
-                                                            Others,
-                                                      ]
-                                                description: Category of the transaction
-                                          notes:
-                                                type: string
-                                                description: Notes of the transaction
-      TransactionResponse:
-            properties:
-                  status:
-                        type: integer
-                  message:
-                        type: string
-                  body:
-                        type: object
-                        properties:
-                              id:
-                                    type: string
-                                    description: Id of the transaction
-                              date:
-                                    type: string
-                                    description: Date of the transaction
-                              amount:
-                                    type: number
-                                    description: Amount of the transaction
-                              description:
-                                    type: string
-                                    description: Description of the transaction
-                              category:
-                                    type: string
-                                    enum:
-                                          [
-                                                Food,
-                                                Housing,
-                                                Transportation,
-                                                Clothing,
-                                                Insurance,
-                                                Entertainment,
-                                                Education,
-                                                Health,
-                                                Others,
-                                          ]
-                                    description: Category of the transaction
-                              notes:
-                                    type: string
-                                    description: Notes of the transaction
-      addTransaction:
-            properties:
-                  accountId:
-                        type: string
-                        description: Id of the new transaction
-                  amount:
-                        type: number
-                        description: Amount of the new transaction
-                  description:
-                        type: string
-                        description: Description of the new transaction
-                  category:
-                        type: string
-                        enum:
-                              [
-                                    Food,
-                                    Housing,
-                                    Transportation,
-                                    Clothing,
-                                    Insurance,
-                                    Entertainment,
-                                    Education,
-                                    Health,
-                                    Others,
-                              ]
-                        description: Category of the new transaction
-                  notes:
-                        type: string
-                        description: Notes of the new transaction
-      editTransaction:
-            properties:
-                  category:
-                        type: string
-                        description: New category of this transaction
-                  notes:
-                        type: string
-                        description: New notes of this transaction
+  User:
+    properties:
+      email:
+        type: string
+        description: User email
+      password:
+        type: string
+        description: User password
+      firstName:
+        type: string
+        description: User first name
+      lastName:
+        type: string
+        description: User last name
+  Login:
+    properties:
+      email:
+        type: string
+        description: User email
+      password:
+        type: string
+        description: User password
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  UserProfile:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+  allTransactionsResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+        description: Response status code
+      message:
+        type: string
+        description: Response message
+      body:
+        type: object
+        properties:
+          transactions:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ID of the transaction
+                date:
+                  type: string
+                  description: Date of the transaction
+                type:
+                  type: string
+                  enum:
+                    - Electronic
+                    - Cash
+                    - Check
+                    - Transfer
+                  description: Type of transaction
+                amount:
+                  type: number
+                  description: Amount of the transaction
+                description:
+                  type: string
+                  description: Description of the transaction
+                category:
+                  type: string
+                  enum:
+                    - Food
+                    - Housing
+                    - Transportation
+                    - Clothing
+                    - Insurance
+                    - Entertainment
+                    - Education
+                    - Health
+                    - Others
+                  description: Category of the transaction
+                notes:
+                  type: string
+                  description: Notes on the transaction
+  TransactionResponse:
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+            description: ID of the transaction
+          date:
+            type: string
+            description: Date of the transaction
+          amount:
+            type: number
+            description: Amount of the transaction
+          description:
+            type: string
+            description: Description of the transaction
+          category:
+            type: string
+            enum:
+              - Food
+              - Housing
+              - Transportation
+              - Clothing
+              - Insurance
+              - Entertainment
+              - Education
+              - Health
+              - Others
+            description: Category of the transaction
+          notes:
+            type: string
+            description: Notes on the transaction
+  addTransaction:
+    properties:
+      accountId:
+        type: string
+        description: ID of the account associated with the transaction
+      amount:
+        type: number
+        description: Amount of the new transaction
+      description:
+        type: string
+        description: Description of the new transaction
+      category:
+        type: string
+        enum:
+          - Food
+          - Housing
+          - Transportation
+          - Clothing
+          - Insurance
+          - Entertainment
+          - Education
+          - Health
+          - Others
+        description: Category of the new transaction
+      notes:
+        type: string
+        description: Notes on the new transaction
+  editTransaction:
+    properties:
+      category:
+        type: string
+        description: New category for this transaction
+      notes:
+        type: string
+        description: New notes for this transaction

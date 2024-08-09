@@ -10,14 +10,10 @@ import process from 'process';
 
 dotenv.config();
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Load swagger document
-// const swaggerDocument = load(fs.readFileSync('./server/swagger.yaml', 'utf8'));
 const swaggerDocument = load(fs.readFileSync('./server/swagger.yaml', 'utf8'));
 
 // Handle potential errors

@@ -44,7 +44,6 @@ const FetchUserProfile: React.FC = () => {
             const fetchUserProfile = async () => {
                   try {
                         const token = sessionStorage.getItem('token');
-                        console.log('Token from sessionStorage', token);
 
                         if (!token) {
                               console.log('No token find in sessionStorage');
@@ -52,7 +51,6 @@ const FetchUserProfile: React.FC = () => {
                         }
 
                         console.log('Fetching user profile');
-                        console.log('Token used:', token);
                         const response = await axios.post<ServerResponse>(
                               'http://localhost:3001/api/v1/user/profile',
                               {},
@@ -63,7 +61,6 @@ const FetchUserProfile: React.FC = () => {
                               }
                         );
 
-                        console.log('Response from server:', response.data);
                         dispatch(setUser(response.data.body));
                         console.log('User profile fetched successfully');
                   } catch (error) {
@@ -73,7 +70,6 @@ const FetchUserProfile: React.FC = () => {
             };
             fetchUserProfile();
       }, [dispatch, navigate]);
-      console.log(user);
 
       const handleEdit = () => {
             setUpdatedFirstName(user?.firstName || '');
@@ -102,7 +98,7 @@ const FetchUserProfile: React.FC = () => {
                         }
                   );
 
-                  console.log('Profile updated successfully:', response.data);
+                  console.log('Profile updated successfully:');
                   dispatch(setUser(response.data.body));
                   setIsEditing(false);
             } catch (error) {

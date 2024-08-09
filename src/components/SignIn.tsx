@@ -30,16 +30,11 @@ const SignIn: React.FC = () => {
             setErrorMessage('');
             try {
                   const payload: LoginPayload = { email, password };
-                  console.log(
-                        'Dispatching loginUser action with payload:',
-                        payload
-                  );
 
                   const result = await dispatch(loginUser(payload)).unwrap();
-                  console.log('Login successful, result:', result);
+                  console.log('Login successful');
 
                   if (result && result.body && result.body.token) {
-                        console.log('JWT token:', result.body.token);
                         navigate('/profile');
                   } else {
                         console.log('JWT token not found in the result');
@@ -48,12 +43,12 @@ const SignIn: React.FC = () => {
                         );
                   }
 
-                  const tokenFromSessionStorage =
-                        sessionStorage.getItem('token');
-                  console.log(
-                        'Token from sessionStorage:',
-                        tokenFromSessionStorage
-                  );
+                  // const tokenFromSessionStorage =
+                  //       sessionStorage.getItem('token');
+                  // console.log(
+                  //       'Token from sessionStorage:',
+                  //       tokenFromSessionStorage
+                  // );
             } catch (error) {
                   console.error('Login error:', error);
                   if (typeof error === 'string') {
