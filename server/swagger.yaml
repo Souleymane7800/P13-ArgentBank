@@ -112,21 +112,21 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions:
+  /user/{accountId}/transactions:
     get:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Get all transactions
-      description: Retrieve all transactions for an authenticated user, with an optional filter by month.
+      summary: Get all transactions for a specific account
+      description: Retrieve all transactions for an authenticated user, filtered by account ID, with an optional filter by month.
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
           required: true
           type: string
-        - in: query
+        - in: path
           name: accountId
           description: The ID of the account for which transactions are retrieved
           required: true
