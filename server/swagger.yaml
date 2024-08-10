@@ -127,6 +127,11 @@ paths:
           required: true
           type: string
         - in: query
+          name: accountId
+          description: The ID of the account for which transactions are retrieved
+          required: true
+          type: string
+        - in: query
           name: month
           description: Optional filter to retrieve transactions for a specific month (MM-YYYY)
           required: false
@@ -141,8 +146,6 @@ paths:
             $ref: '#/definitions/allTransactionsResponse'
         '401':
           description: Unauthorized
-        '403':
-          description: Not allowed to access this resource
         '404':
           description: Transactions not found
         '500':
@@ -245,6 +248,8 @@ paths:
           description: Transaction edited successfully
           schema:
             $ref: '#/definitions/TransactionResponse'
+        '400':
+          description: Invalid fields
         '401':
           description: Unauthorized
         '403':
@@ -280,6 +285,8 @@ paths:
           description: Invalid Fields
         '401':
           description: Unauthorized
+        '403':
+          description: Not allowed to access this resource
         '404':
           description: Transaction not found
         '500':
